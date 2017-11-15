@@ -1,0 +1,24 @@
+.page-header
+  %h1= "Post - #{@post.id}"
+
+%p
+  %strong Title
+  %br
+  = @post.title
+
+%p
+  %strong Body
+  %br
+  = @post.body
+
+- if @post.video_url.present?
+  %p
+    = video_tag @post.video_url, size: '500x500', controls: true, autobuffer: true
+
+- if @post.video_upload_url.present?
+  %p
+    = video_tag @post.video_upload_url, size: '500x500', controls: true, autobuffer: true
+
+= link_to 'Back', posts_path, class: 'btn btn-default'
+= link_to 'Edit', edit_post_path(@post), class: 'btn btn-default'
+= link_to 'Destroy', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'

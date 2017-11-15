@@ -1,0 +1,21 @@
+.page-header
+  %h1 Posts
+%table.table.table-striped
+  %thead
+    %tr
+      %th ID
+      %th Title
+      %th Created At
+      %th Actions
+  %tbody
+    - @posts.each do |post|
+      %tr
+        %td= link_to post.id, post_path(post)
+        %td= post.title
+        %td= post.created_at
+        %td
+          = link_to 'View', post_path(post), class: 'btn btn-default btn-xs'
+          = link_to 'Edit', edit_post_path(post), class: 'btn btn-default btn-xs'
+          = link_to 'Destroy', post_path(post), :method => :delete, :data => { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+
+= link_to 'New', new_post_path, class: 'btn btn-primary'

@@ -1,0 +1,30 @@
+!!! 5
+%html{ lang: :en }
+  %head
+    %title Playground
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'dataturbolinkstrack': 'reload'
+    = javascript_include_tag 'application', 'dataturbolinkstrack': 'reload'
+
+  %body
+    .navbar.navbar-default.navbar-static-top
+      .container
+        %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        = link_to image_tag('play_ground_logo.png', style: 'width: 180px'), root_path, class: 'navbar-brand', style: 'padding: 0'
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav
+            %li= link_to 'Posts', posts_path
+
+    .container
+      .row
+        .col-md-12
+          = bootstrap_flash
+          = yield
+      %br
+      %footer
+        %p
+          &copy; Jambul
+          = Date.today.year
