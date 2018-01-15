@@ -4,6 +4,7 @@
   %thead
     %tr
       %th ID
+      %th Preview
       %th Title
       %th Created At
       %th Actions
@@ -11,6 +12,7 @@
     - @posts.each do |post|
       %tr
         %td= link_to post.id, post_path(post)
+        %td= image_tag post.video.thumbnail.try(:url), size: '48'
         %td= post.title
         %td= post.created_at
         %td
