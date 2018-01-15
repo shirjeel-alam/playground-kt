@@ -2,6 +2,7 @@
   "name": "playground",
   "private": true,
   "dependencies": {
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "video.js": "^6.6.0"
   }
 }

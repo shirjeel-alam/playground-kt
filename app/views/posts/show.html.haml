@@ -11,21 +11,11 @@
   %br
   = @post.body
 
-- if @post.video.url.present?
-  %p
-    = video_tag @post.video.url, size: '500x500', controls: true, autobuffer: true
+%video.video-js.vjs-default-skin{ controls: true, style: 'width:auto;height:250px' } 
+  %source{ src: @post.video.mp4.url, type: 'video/mp4' }
+  %source{ src: @post.video.webm.url, type: 'video/webm' }
 
-- if @post.video.mp4.present?
-  %p
-    = video_tag @post.video.mp4.url, size: '500x500', controls: true, autobuffer: true
-
-- if @post.video.webm.present?
-  %p
-    = video_tag @post.video.webm.url, size: '500x500', controls: true, autobuffer: true
-
-- if @post.video.thumbnail.present?
-  %p
-    = image_tag @post.video.thumbnail.url
+%br
 
 = link_to 'Back', posts_path, class: 'btn btn-default'
 = link_to 'Edit', edit_post_path(@post), class: 'btn btn-default'

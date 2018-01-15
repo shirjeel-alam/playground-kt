@@ -1,0 +1,1 @@
+SuckerPunch.logger = Logger.new('sucker_punch.log')

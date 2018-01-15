@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   'https://github.com/#{repo_name}.git'
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use postgresql as the database for Active Record
@@ -55,5 +54,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'haml-rails', '~> 1.0'
 gem 'faker'
-gem 'carrierwave'
+gem 'carrierwave', '~> 0.5'
 gem 'sucker_punch'
+gem 'carrierwave_backgrounder', :git => 'https://github.com/lardawge/carrierwave_backgrounder.git'
