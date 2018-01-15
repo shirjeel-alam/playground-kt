@@ -14,36 +14,41 @@ class VideoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url(*args)
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+  version :mp4 do
+    process encode: [:mp4]
+    
+    def full_filename(for_file)
+      super.chomp(File.extname(super)) + '.mp4'
+    end
+  end
 
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  version :webm do
+    process encode: [:webm]
+    
+    def full_filename(for_file)
+      super.chomp(File.extname(super)) + '.webm'
+    end
+  end
 
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  version :thumbnail do
+    process encode: [:jpg]
+    
+    def full_filename(for_file)
+      super.chomp(File.extname(super)) + '.jpg'
+    end
+  end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
-  # def extension_whitelist
-  #   %w(jpg jpeg gif png)
-  # end
-
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def encode format, opts = {}
+    tmp_path = File.join File.dirname(current_path), "tmp_file.#{format}"
+    case format
+    when :mp4
+      system("ffmpeg -i #{current_path} -c:v libx264 -preset slow #{tmp_path}")
+    when :webm
+      system("ffmpeg -i #{current_path} -c:v libvpx -b:v 2M #{tmp_path}")
+    when :jpg
+      system("ffmpeg -i #{current_path} -vframes 1 -qscale:v 1 #{tmp_path}")
+    end
+    File.rename tmp_path, current_path
+  end
 
 end

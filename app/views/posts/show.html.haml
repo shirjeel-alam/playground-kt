@@ -11,13 +11,21 @@
   %br
   = @post.body
 
-- if @post.video_url.present?
+- if @post.video.url.present?
   %p
-    = video_tag @post.video_url, size: '500x500', controls: true, autobuffer: true
+    = video_tag @post.video.url, size: '500x500', controls: true, autobuffer: true
 
-- if @post.video_upload_url.present?
+- if @post.video.mp4.present?
   %p
-    = video_tag @post.video_upload_url, size: '500x500', controls: true, autobuffer: true
+    = video_tag @post.video.mp4.url, size: '500x500', controls: true, autobuffer: true
+
+- if @post.video.webm.present?
+  %p
+    = video_tag @post.video.webm.url, size: '500x500', controls: true, autobuffer: true
+
+- if @post.video.thumbnail.present?
+  %p
+    = image_tag @post.video.thumbnail.url
 
 = link_to 'Back', posts_path, class: 'btn btn-default'
 = link_to 'Edit', edit_post_path(@post), class: 'btn btn-default'
